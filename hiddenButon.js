@@ -2,11 +2,17 @@ const buttons = document.querySelectorAll(".btn");
 const message = ["WINNER", "NOT WINNER"];
 let winnerNumber = Math.floor(Math.random() * 3);
 
-for (let i = 0; i < buttons.length; ++i) {
-  buttons[i].addEventListener("click", function onClick() {
-    checkWinner(i);
+function addEvent(btn, index) {
+  btn.addEventListener("click", function onClick() {
+    checkWinner(index);
   });
 }
+function initGame() {
+  for (let i = 0; i < buttons.length; ++i) {
+    addEvent(buttons[i], i);
+  }
+}
+initGame();
 function checkWinner(index) {
   if (index === winnerNumber) {
     alert("Winner");
@@ -14,16 +20,14 @@ function checkWinner(index) {
     alert("Not Winner");
   }
 }
-document.querySelector(".number").addEventListener("click", function () {
+function increase() {
   let value = document.querySelector(".input").value;
   let number = 1;
   for (let i = 0; i < value; ++i) {
     let btn = document.createElement("BUTTON");
     btn.innerHTML = `Button ${number}`;
     document.body.appendChild(btn);
-    btn.addEventListener("click", function onClick() {
-      checkWinner(i);
-    });
+    addEvent(btn, i);
     ++number;
   }
-});
+}
